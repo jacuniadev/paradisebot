@@ -17,16 +17,24 @@
     =======================================         
     @project: Paradise BOT;
     @author: WH1T3R0S3 SQUAD (thenbhd#0001);
-    @filename: lib/Game.js;
+    @filename: lib/Game.ts;
 
     All rights are reserved.
     =======================================
 */
 
+/**
+ * Game main data class
+ */
 class Game {
+    /**
+     * Current game verison
+     */
+    public version: number;
+    
     constructor() {
         this.version = 52;
     }
 }
 
-module.exports = Game;
+export default Game;
