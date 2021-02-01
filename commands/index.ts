@@ -1,1 +1,5 @@
-export * from './say';
+import { say } from './say';
+
+export default {
+    say
+};

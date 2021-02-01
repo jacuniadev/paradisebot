@@ -23,7 +23,7 @@
     =======================================
 */
 import Socket from './lib/Socket';
-import * as Commands from './commands';
+import Commands from './commands';
 import * as Utils from './utils';
 import {UserData} from './types';
 
@@ -40,8 +40,6 @@ function Bot(address: string, userData: UserData) {
         userData.token,
         userData.tokenId,
     ).socketInstance;
-
-    this.commandHandler = new Commands;
 
     this.server = {
         players: []
@@ -71,12 +69,12 @@ function Bot(address: string, userData: UserData) {
                                 return;
                             } else {
                                 const args = PLAYER_MESSAGE.slice(Utils.commandPrefix.length).trim().split(/ +/),
-                                    commandName = args.shift().toLowerCase();
+                                    commandName = args.shift().toLowerCase() as keyof typeof Commands;
 
-                                const command = this.commandHandler.getCommand(commandName);
+                                const command = Commands[commandName];
 
                                 if (command)
-                                    command.callback(socket, this.stats, args);
+                                    command(socket, this.stats, args);
                             };
                             break;
                         case 3:
