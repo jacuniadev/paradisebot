@@ -25,8 +25,9 @@
 import Socket from './lib/Socket';
 import * as Commands from './commands';
 import * as Utils from './utils';
+import {UserData} from './types';
 
-function Bot(address: string, userData) {
+function Bot(address: string, userData: UserData) {
     if (!address)
         throw new Error(`Argument ${address ? "" : "address"} is required`);
 
