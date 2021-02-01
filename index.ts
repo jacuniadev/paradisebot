@@ -24,19 +24,7 @@
 */
 import Socket from './lib/Socket';
 import * as Commands from './commands';
-
-
-const Utils = {
-    commandPrefix: "#",
-    isEmpty: obj => {
-        for (const prop in obj) {
-            if (obj.hasOwnProperty(prop))
-                return false;
-        }
-      
-        return JSON.stringify(obj) === JSON.stringify({});
-    }
-}
+import * as Utils from './utils';
 
 function Bot(address: string, userData) {
     if (!address)
