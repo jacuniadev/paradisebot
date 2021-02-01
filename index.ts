@@ -31,8 +31,11 @@ function Bot(address: string, userData: UserData) {
     if (!address)
         throw new Error(`Argument ${address ? "" : "address"} is required`);
 
-    if (!userData || typeof userData !== "object")
-        throw new Error(typeof userData !== "object" ? "Argument userData is not an object" : Utils.isEmpty(userData) ? "Argument userData is required" : "");
+    if (typeof userData !== "object")
+        throw new Error("Argument userData is not an object");
+
+    if (!userData || Utils.isEmpty(userData))
+        throw new Error("Argument userData is required")
 
     const socket = new Socket(
         true,
