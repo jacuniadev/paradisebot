@@ -1,0 +1,11 @@
+{
+  "name": "multiBot",
+  "version": "1.0.0",
+  "description": "An bot for afking people who want make longer and longer the highscore",
+  "main": "index.js",
+  "author": "thenbhd, pacanchik, 2341",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^7.4.2"
+  }
+}
