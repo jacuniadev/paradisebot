@@ -25,7 +25,7 @@
 import Socket from './lib/Socket';
 import Commands from './commands';
 import * as Utils from './utils';
-import {Server, UserData} from './types';
+import {Command, Server, UserData} from './types';
 
 function Bot(address: string, userData: UserData) {
     if (!address)
@@ -72,7 +72,7 @@ function Bot(address: string, userData: UserData) {
                                 const args = PLAYER_MESSAGE.slice(Utils.commandPrefix.length).trim().split(/ +/),
                                     commandName = args.shift().toLowerCase() as keyof typeof Commands;
 
-                                const command = Commands[commandName];
+                                const command: Command = Commands[commandName];
 
                                 if (command)
                                     command(socket, stats, args);
