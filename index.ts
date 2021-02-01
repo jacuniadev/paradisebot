@@ -17,14 +17,14 @@
     =======================================         
     @project: Paradise BOT;
     @author: WH1T3R0S3 SQUAD (thenbhd#0001);
-    @filename: index.js;
+    @filename: index.ts;
 
     All rights are reserved.
     =======================================
 */
+import Socket from './lib/Socket';
+import * as Commands from './commands';
 
-const Socket = require("./lib/Socket"),
-    Commands = require("./lib/Commands");
 
 const Utils = {
     commandPrefix: "#",
@@ -38,7 +38,7 @@ const Utils = {
     }
 }
 
-function Bot(address, userData) {
+function Bot(address: string, userData) {
     if (!address)
         throw new Error(`Argument ${address ? "" : "address"} is required`);
 
@@ -67,7 +67,7 @@ function Bot(address, userData) {
 
                         if (!PLAYER_MESSAGE.startsWith(Utils.commandPrefix)) {
                             for (const player of this.server.players) {
-                                if (player.i === PLAYER_ID)
+                               if (player.i === PLAYER_ID)
                                     console.log(`[CHAT] ${player.n}: ${PLAYER_MESSAGE}`);
                                 else
                                     console.log(`[CHAT] unknown#${PLAYER_ID}: ${PLAYER_MESSAGE}`);
