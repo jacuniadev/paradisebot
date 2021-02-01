@@ -45,7 +45,7 @@ function Bot(address: string, userData: UserData) {
         players: []
     };
 
-    this.stats = [];
+    const stats: number[] = [];
 
     if (socket) 
         socket.onmessage = message => {
@@ -75,7 +75,7 @@ function Bot(address: string, userData: UserData) {
                                 const command = Commands[commandName];
 
                                 if (command)
-                                    command(socket, this.stats, args);
+                                    command(socket, stats, args);
                             };
                             break;
                         case 3:
@@ -94,7 +94,7 @@ function Bot(address: string, userData: UserData) {
                             break;
                         case 16:
                             for (let i = 1; i < parsed.length - 1; i++)
-                                this.stats[i] = parsed[i] || 0;
+                                stats[i] = parsed[i] || 0;
                             break;
                         case 25:
                             console.log("Bot died");
