@@ -30,7 +30,7 @@ import Game from "./Game";
 class Socket extends Game {
     private socket: WebSocket;
 
-    constructor(secure: boolean, address: string, token: string, tokenId: string) {
+    constructor(secure: boolean, address: string, token: string, tokenId?: string) {
         super();
 
         if (!secure)
@@ -42,7 +42,7 @@ class Socket extends Game {
         this.socket = new WebSocket(`${secure ? "wss" : "ws"}://${address}`, {headers: {userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"}});
         this.socket.binaryType = "arraybuffer";
 
-        this.socket.onopen = () => this.socket.send(JSON.stringify(["pdbot.js", 2120, 1400, this.version, token ? token : "", tokenId ? tokenId : "", 0, 0, 0, 0, 0, 1, 0, null, null, null]));
+        this.socket.onopen = () => this.socket.send(JSON.stringify(["pdbot.js", 2120, 1400, this.version, token, tokenId ? tokenId : "", 0, 0, 0, 0, 0, 1, 0, null, null, null]));
         this.socket.onerror = () => {};
     }
 
