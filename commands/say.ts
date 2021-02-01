@@ -26,16 +26,31 @@
 /*
     How to do the command?
 
-    export const name = (socket, stats, args) => { <-- Command code
+    import {Command} from "../types";
+
+    export const name: Command = (socket, stats, args) => { <-- Command code
             <!- THERE PUT THE CODE OF COMMAND -!>
         }
 
     and add to `commands/index.ts`
 
-    export * from './name';
+    import {name} from './name';
+
+    and in same file
+
+    export default {
+        . <-- diffrent commands
+        .
+        .
+        name,
+    }
 */
+
+import {Command} from "../types";
 
 /**
  * Sand message to in-game chat.
+ * @param socket WebSocket instance.
+ * @param args Text to send.
  */
-export const say = (socket, stats, args) => socket.send(JSON.stringify([0, args.join(" ")]));
+export const say: Command = (socket, _, args) => socket.send(JSON.stringify([0, args.join(" ")]));
