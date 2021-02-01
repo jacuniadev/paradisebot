@@ -86,7 +86,8 @@ function Bot(address: string, userData: UserData) {
                     }
                     break;
                 case "object":
-                    parsed = new Uint8Array(message.data);
+                    // Need beause of return type from socket
+                    parsed = new Uint8Array(message.data as ArrayBuffer);
 
                     switch (parsed[0]) {
                         case 5:
