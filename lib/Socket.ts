@@ -17,23 +17,26 @@
     =======================================         
     @project: Paradise BOT;
     @author: WH1T3R0S3 SQUAD (thenbhd#0001);
-    @filename: lib/Socket.js;
+    @filename: lib/Socket.ts;
 
     All rights are reserved.
     =======================================
 */
 
-const WebSocket = require("ws");
+import WebSocket from "ws";
 
-const Game = require("./Game");
+import Game from "./Game";
 
 class Socket extends Game {
-    constructor(secure, address, token, tokenId) {
+    private socket: WebSocket;
+
+    constructor(secure: boolean, address: string, token: string, tokenId: string) {
         super();
 
-        if (!secure || typeof secure !== "boolean")
+        if (!secure)
             throw new Error("Starve.io servers are secure (it uses SSL protocols). Please switch secure argument to 'true'");
-        else if (!address || !token)
+
+        if (!address || !token)
             throw new Error(`Argument '${!address ? "address" : !token ? "token" : ""}' is empty`);
 
         this.socket = new WebSocket(`${secure ? "wss" : "ws"}://${address}`, {headers: {userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"}});
@@ -43,9 +46,9 @@ class Socket extends Game {
         this.socket.onerror = () => {};
     }
 
-    getSocketInstance() {
+    get socketInstance(): WebSocket | null {
         return this.socket || null;
     }
 }
 
-module.exports = Socket;
+export default Socket;
