@@ -25,7 +25,7 @@
 import Socket from './lib/Socket';
 import Commands from './commands';
 import * as Utils from './utils';
-import {UserData} from './types';
+import {Server, UserData} from './types';
 
 function Bot(address: string, userData: UserData) {
     if (!address)
@@ -41,9 +41,10 @@ function Bot(address: string, userData: UserData) {
         userData.tokenId,
     ).socketInstance;
 
-    this.server = {
+    const server: Server = {
         players: []
     };
+
     this.stats = [];
 
     if (socket) 
@@ -60,7 +61,7 @@ function Bot(address: string, userData: UserData) {
                                 PLAYER_MESSAGE = parsed[2] ? parsed[2] : "none";
 
                             if (!PLAYER_MESSAGE.startsWith(Utils.commandPrefix)) {
-                                for (const player of this.server.players) {
+                                for (const player of server.players) {
                                    if (player.i === PLAYER_ID)
                                         console.log(`[CHAT] ${player.n}: ${PLAYER_MESSAGE}`);
                                     else
@@ -78,7 +79,7 @@ function Bot(address: string, userData: UserData) {
                             };
                             break;
                         case 3:
-                            this.server.players = parsed[4] ? parsed[4] : [];
+                            server.players = parsed[4] ? parsed[4] : [];
 
                             console.log("Connected to server");
                             break;
