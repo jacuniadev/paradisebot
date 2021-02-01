@@ -106,6 +106,6 @@ function Bot(address: string, userData: UserData) {
         }
 }
 
-new Bot("server747.starve.io", {
+Bot("server747.starve.io", {
     token: "znQo87B<muWx\0"
 });
