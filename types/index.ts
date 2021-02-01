@@ -26,7 +26,7 @@ export type Server = {
 /**
  * Command function.
  * @param socket WebSocket instance.
- * @param stats Statistics from game server.
+ * @param stats Player statistic.
  * @param args Additional arguments.
  */
 export type Command = (socket: WebSocket, stats: number[], args: string[]) => void
