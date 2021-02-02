@@ -95,7 +95,7 @@ class Socket extends Game {
      * Register handler for socket message.
      * @param registeredHandler Object need to register handler for WebSocket message.
      */
-    public registerHandlera(registeredHandler: RegisteredJSONHandler | RegisteredUintHandler) {
+    public registerHandler(registeredHandler: RegisteredJSONHandler | RegisteredUintHandler) {
         if (
             registeredHandler.handlerType === "JSON" 
             && !this.JSONHandlers.has(registeredHandler.registrat)
