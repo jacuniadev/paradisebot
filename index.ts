@@ -56,31 +56,31 @@ function Bot(address: string, userData: UserData) {
 
     const stats: number[] = [];
 
-    socket.registerHandlera({
+    socket.registerHandler({
         handlerType: "JSON",
         registrat: 3,
         handler: handlePlayerList(server),
     })
 
-    socket.registerHandlera({
+    socket.registerHandler({
         handlerType: 'JSON',
         registrat: 0,
         handler: handleWaitForCommand(server, stats),
     })
 
-    socket.registerHandlera({
+    socket.registerHandler({
         handlerType: 'Uint',
         registrat: 5,
         handler: handleTimeout(),
     });
 
-    socket.registerHandlera({
+    socket.registerHandler({
         handlerType: 'Uint',
         registrat: 16,
         handler: handlePlayerStatistics(stats),
     });
 
-    socket.registerHandlera({
+    socket.registerHandler({
         handlerType: 'Uint',
         registrat: 25,
         handler: handleBotDeath(),
