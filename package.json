@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node index.ts",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest"
   },
   "dependencies": {
     "ws": "7.4.2"
