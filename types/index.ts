@@ -30,3 +30,10 @@ export type Server = {
  * @param args Additional arguments.
  */
 export type Command = (socket: WebSocket, stats: number[], args: string[]) => void
+
+/**
+ * Communication universal handler.
+ * @param socket WebSocket instance.
+ * @param parse Paramtrs from message.
+ */
+export type Handler<T> = (socket: WebSocket, parse: T) => void;
