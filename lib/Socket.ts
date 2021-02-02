@@ -24,7 +24,7 @@
 */
 
 import WebSocket from "ws";
-import {Handler} from "../types";
+import {Handler, RegisteredJSONHandler, RegisteredUintHandler} from "../types";
 
 import Game from "./Game";
 
@@ -89,6 +89,26 @@ class Socket extends Game {
         this.socket.onmessage = this.handleMessage;
         this.JSONHandlers = new Map();
         this.UintHandlers = new Map();
+    }
+
+    /**
+     * Register handler for socket message.
+     * @param registeredHandler Object need to register handler for WebSocket message.
+     */
+    public registerHandlera(registeredHandler: RegisteredJSONHandler | RegisteredUintHandler) {
+        if (
+            registeredHandler.handlerType === "JSON" 
+            && !this.JSONHandlers.has(registeredHandler.registrat)
+        ) {
+            this.JSONHandlers.set(registeredHandler.registrat, registeredHandler.handler);
+        }
+
+        if (
+            registeredHandler.handlerType === "Uint"
+            && !this.UintHandlers.has(registeredHandler.registrat)
+        ) {
+            this.UintHandlers.set(registeredHandler.registrat, registeredHandler.handler);
+        }
     }
 
     get socketInstance(): WebSocket | null {

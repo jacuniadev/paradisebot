@@ -37,3 +37,22 @@ export type Command = (socket: WebSocket, stats: number[], args: string[]) => vo
  * @param parse Paramtrs from message.
  */
 export type Handler<T> = (socket: WebSocket, parse: T) => void;
+
+/**
+ * Register handler param for JSON handler.
+ */
+export type RegisteredJSONHandler = {
+    handlerType: "JSON";
+    registrat: number;
+    handler: Handler<any[]>;
+}
+
+
+/**
+ * Register handler param for Uint handler.
+ */
+export type RegisteredUintHandler = {
+    handlerType: "Uint";
+    registrat: number;
+    handler: Handler<Uint8Array>;
+}
