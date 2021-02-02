@@ -16,7 +16,7 @@
 
     =======================================         
     @project: Paradise BOT;
-    @author: WH1T3R0S3 SQUAD (thenbhd#0001);
+    @author: thenbhd#0001, NNNP#4293;
     @filename: commands/say.ts;
 
     All rights are reserved.
@@ -26,18 +26,22 @@
 /*
     How to do the command?
 
+    First you're need to import the types.
     import {Command} from "../types";
 
-    export const name: Command = (socket, stats, args) => { <-- Command code
-            <!- THERE PUT THE CODE OF COMMAND -!>
-        }
+    Nextly you're need to make constant export function.
 
-    and add to `commands/index.ts`
+    Example:
+    export const name: Command = (socket, playerStats, args) => {
+        <!- THERE PUT THE CODE OF COMMAND -!>
+    }
 
+    Then add command import in main (commands/index.ts) file responsible for running the commands, you're need add an import to command.
+
+    Example:
     import {name} from './name';
 
-    and in same file
-
+    And in the main file responsible of running the commands, you just need to add the command name.
     export default {
         . <-- diffrent commands
         .
@@ -49,7 +53,7 @@
 import {Command} from "../types";
 
 /**
- * Sand message to in-game chat.
+ * Send message to in-game chat.
  * @param socket WebSocket instance.
  * @param args Text to send.
  */
