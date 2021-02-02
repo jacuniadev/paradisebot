@@ -26,7 +26,7 @@
 /**
  * Command prefix.
  */
-export const commandPrefix: string = "#";
+export const commandPrefix = "#";
 
 /**
  * Chacks if object is empty.

@@ -85,7 +85,7 @@ class Socket extends Game {
         this.socket.binaryType = "arraybuffer";
 
         this.socket.onopen = () => this.socket.send(JSON.stringify(["pdbot.js", 2120, 1400, this.version, token, tokenId ? tokenId : "", 0, 0, 0, 0, 0, 1, 0, null, null, null]));
-        this.socket.onerror = () => {};
+        this.socket.onerror = () => ({});
         this.socket.onmessage = this.handleMessage;
         this.JSONHandlers = new Map();
         this.UintHandlers = new Map();
@@ -95,7 +95,7 @@ class Socket extends Game {
      * Register handler for socket message.
      * @param registeredHandler Object need to register handler for WebSocket message.
      */
-    public registerHandler(registeredHandler: RegisteredJSONHandler | RegisteredUintHandler) {
+    public registerHandler(registeredHandler: RegisteredJSONHandler | RegisteredUintHandler): void {
         if (
             registeredHandler.handlerType === "JSON" 
             && !this.JSONHandlers.has(registeredHandler.registrat)
