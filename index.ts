@@ -26,8 +26,8 @@ import Socket from './lib/Socket';
 import * as Utils from './utils';
 import {Server, UserData} from './types';
 import {
-    handleBotDeath,
-    handlePlayerList,
+    handleDeath,
+    handleConnection,
     handlePlayerStatistics, 
     handleTimeout,
     handleWaitForCommand,
@@ -59,7 +59,7 @@ function Bot(address: string, userData: UserData) {
     socket.registerHandler({
         handlerType: "JSON",
         registrat: 3,
-        handler: handlePlayerList(server),
+        handler: handleConnection(server),
     })
 
     socket.registerHandler({
@@ -83,7 +83,7 @@ function Bot(address: string, userData: UserData) {
     socket.registerHandler({
         handlerType: 'Uint',
         registrat: 25,
-        handler: handleBotDeath(),
+        handler: handleDeath(),
     });
 }
 
