@@ -23,9 +23,15 @@
     =======================================
 */
 import Socket from './lib/Socket';
-import Commands from './commands';
 import * as Utils from './utils';
-import {Command, Server, UserData} from './types';
+import {Server, UserData} from './types';
+import {
+    handleBotDeath,
+    handlePlayerList,
+    handlePlayerStatistics, 
+    handleTimeout,
+    handleWaitForCommand,
+} from './handlers';
 
 function Bot(address: string, userData: UserData) {
     if (!address)
@@ -42,7 +48,7 @@ function Bot(address: string, userData: UserData) {
         address,
         userData.token,
         userData.tokenId,
-    ).socketInstance;
+    );
 
     const server: Server = {
         players: []
@@ -50,63 +56,35 @@ function Bot(address: string, userData: UserData) {
 
     const stats: number[] = [];
 
-    if (socket) 
-        socket.onmessage = message => {
-            let parsed;
+    socket.registerHandlera({
+        handlerType: "JSON",
+        registrat: 3,
+        handler: handlePlayerList(server),
+    })
 
-            switch (typeof message.data) {
-                case "string":
-                    parsed = JSON.parse(message.data);
+    socket.registerHandlera({
+        handlerType: 'JSON',
+        registrat: 0,
+        handler: handleWaitForCommand(server, stats),
+    })
 
-                    switch (parsed[0]) {
-                        case 0:
-                            const PLAYER_ID = parsed[1] ? parsed[1] : 0,
-                                PLAYER_MESSAGE = parsed[2] ? parsed[2] : "none";
+    socket.registerHandlera({
+        handlerType: 'Uint',
+        registrat: 5,
+        handler: handleTimeout(),
+    });
 
-                            if (!PLAYER_MESSAGE.startsWith(Utils.commandPrefix)) {
-                                for (const player of server.players) {
-                                   if (player.i === PLAYER_ID)
-                                        console.log(`[CHAT] ${player.n}: ${PLAYER_MESSAGE}`);
-                                    else
-                                        console.log(`[CHAT] unknown#${PLAYER_ID}: ${PLAYER_MESSAGE}`);
-                                }
-                                return;
-                            } else {
-                                const args = PLAYER_MESSAGE.slice(Utils.commandPrefix.length).trim().split(/ +/),
-                                    commandName = args.shift().toLowerCase() as keyof typeof Commands;
+    socket.registerHandlera({
+        handlerType: 'Uint',
+        registrat: 16,
+        handler: handlePlayerStatistics(stats),
+    });
 
-                                const command: Command = Commands[commandName];
-
-                                if (command)
-                                    command(socket, stats, args);
-                            };
-                            break;
-                        case 3:
-                            server.players = parsed[4] ? parsed[4] : [];
-
-                            console.log("Connected to server");
-                            break;
-                    }
-                    break;
-                case "object":
-                    // Need beause of return type from socket
-                    parsed = new Uint8Array(message.data as ArrayBuffer);
-
-                    switch (parsed[0]) {
-                        case 5:
-                            console.log("Server is full/Server timeout connection");
-                            break;
-                        case 16:
-                            for (let i = 1; i < parsed.length - 1; i++)
-                                stats[i] = parsed[i] || 0;
-                            break;
-                        case 25:
-                            console.log("Bot died");
-                            break;
-                    }
-                    break;
-            }
-        }
+    socket.registerHandlera({
+        handlerType: 'Uint',
+        registrat: 25,
+        handler: handleBotDeath(),
+    });
 }
 
 Bot("server747.starve.io", {
