@@ -1,13 +1,38 @@
+/*
+            ooo      ooooooo          
+        ooMMMMMMoooooMMMMMMMMMoo      
+        oooMMMMMMMMMMM MMMMMMMMMMMo    
+        oMMMMMMMMMMMMoMMMMMMMMMMMMM   
+        MMMM MMoMMMMMM oMMMMMMMMMMMM  
+        MM oMMoMMMMoMMMoMMMMMMMMMMMo 
+            MM MMMMMMMMMMMMMMMMMMMMMM 
+            oMM    MMMMMMMMMMoMMMMMMMM 
+            MMMo   oMMMMMMMooooMMMMMM  
+            MMMMMo    MMMoooMMMMMMMMM  
+            MMMMMMMoMMooMMMMMMMMMMM   
+            oMMMMMMMMMMMMMMMMMMMo    
+                oMMMMMMMMMMMMMMoo      
+                    oooo oo     
+
+    =======================================         
+    @project: Paradise BOT;
+    @author: thenbhd#0001, NNNP#4293;
+    @filename: handlers/index.ts;
+
+    All rights are reserved.
+    =======================================
+*/
+
 import {Command, Handler, Server} from "../types";
 import {commandPrefix} from '../utils'
 import Commands from '../commands';
 
 /**
- * Handler for getting players list.
+ * Handler for initializing connection.
  * @param server Server object.
  * @returns Socket message handler.
  */
-export const handlePlayerList: (server: Server) =>  Handler<any[]> = (server) =>  (_, parsed) => {
+export const handleConnection: (server: Server) => Handler<any[]> = (server) => (_, parsed) => {
     server.players = parsed[4] ? parsed[4] : [];
 
     console.log("Connected to server");
@@ -16,7 +41,7 @@ export const handlePlayerList: (server: Server) =>  Handler<any[]> = (server) =>
 /**
  * Runs command if passed on chat
  * @param server Server object.
- * @param stats Player statistics.
+ * @param stats Player current statistics (health, food, water, temperature, overheat, air).
  * @returns Socket message handler.
  */
 export const handleWaitForCommand: (server: Server, stats: number[]) => Handler<any[]> = (
@@ -66,4 +91,4 @@ export const handlePlayerStatistics: (stats: number[]) => Handler<Uint8Array> = 
  * Handles bot death.
  * @returns Socket message handler.
  */
-export const handleBotDeath: () => Handler<Uint8Array> = () => () => console.log('Bot died');
+export const handleDeath: () => Handler<Uint8Array> = () => () => console.log(`Died at ${Date.now()}`);

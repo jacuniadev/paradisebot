@@ -1,3 +1,28 @@
+/*
+            ooo      ooooooo          
+        ooMMMMMMoooooMMMMMMMMMoo      
+        oooMMMMMMMMMMM MMMMMMMMMMMo    
+        oMMMMMMMMMMMMoMMMMMMMMMMMMM   
+        MMMM MMoMMMMMM oMMMMMMMMMMMM  
+        MM oMMoMMMMoMMMoMMMMMMMMMMMo 
+            MM MMMMMMMMMMMMMMMMMMMMMM 
+            oMM    MMMMMMMMMMoMMMMMMMM 
+            MMMo   oMMMMMMMooooMMMMMM  
+            MMMMMo    MMMoooMMMMMMMMM  
+            MMMMMMMoMMooMMMMMMMMMMM   
+            oMMMMMMMMMMMMMMMMMMMo    
+                oMMMMMMMMMMMMMMoo      
+                    oooo oo     
+
+    =======================================         
+    @project: Paradise BOT;
+    @author: thenbhd#0001, NNNP#4293;
+    @filename: types/index.ts;
+
+    All rights are reserved.
+    =======================================
+*/
+
 import WebSocket from "ws";
 
 /**
@@ -46,7 +71,6 @@ export type RegisteredJSONHandler = {
     registrat: number;
     handler: Handler<any[]>;
 }
-
 
 /**
  * Register handler param for Uint handler.
