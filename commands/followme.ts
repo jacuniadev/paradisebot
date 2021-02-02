@@ -17,18 +17,19 @@
     =======================================         
     @project: Paradise BOT;
     @author: thenbhd#0001, NNNP#4293;
-    @filename: commands/index.ts;
+    @filename: commands/followme.ts;
 
     All rights are reserved.
     =======================================
 */
 
-/* THIS IS THE FILE THAT IS RESPONSIBLE FOR RUNNING COMMANDS */
+import {Command} from "../types";
 
-import { say } from './say';
-import { followme } from './followme'
+/**
+ * Start follwoing player.
+ * @param socket WebSocket instance.
+ * @param stats Player statistics.
+ * @param args Message data
+ */
+export const followme: Command = () => ({});
 
-export default {
-    say,
-    followme
-};
