@@ -64,12 +64,11 @@ class Socket extends Game {
      * @param message WebSocket message object.
      */
     private handleMessage = ({data}: WebSocket.MessageEvent) => {
-        if (data instanceof ArrayBuffer) 
-            this.handleUintCommunication(data)
-            
-
         if (typeof data === "string")
             this.handleJSONCommunication(data);
+
+        if (data instanceof ArrayBuffer) 
+            this.handleUintCommunication(data);
     };
 
     constructor(secure: boolean, address: string, token: string, tokenId?: string) {
@@ -87,6 +86,7 @@ class Socket extends Game {
         this.socket.onopen = () => this.socket.send(JSON.stringify(["pdbot.js", 2120, 1400, this.version, token, tokenId ? tokenId : "", 0, 0, 0, 0, 0, 1, 0, null, null, null]));
         this.socket.onerror = () => ({});
         this.socket.onmessage = this.handleMessage;
+        
         this.JSONHandlers = new Map();
         this.UintHandlers = new Map();
     }

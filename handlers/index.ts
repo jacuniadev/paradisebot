@@ -41,33 +41,35 @@ export const handleConnection: (server: Server) => Handler<any[]> = (server) => 
 /**
  * Runs command if passed on chat
  * @param server Server object.
- * @param stats Player current statistics (health, food, water, temperature, overheat, air).
+ * @param playerStats Player current statistics (health, food, water, temperature, overheat, air).
  * @returns Socket message handler.
  */
 export const handleWaitForCommand: (server: Server, stats: number[]) => Handler<any[]> = (
     server,
-    stats,
+    playerStats,
 ) => (socket, parsed) => {
     const PLAYER_ID = parsed[1] ? parsed[1] : 0;
     const PLAYER_MESSAGE = parsed[2] ? parsed[2] : "none";
 
     if (!PLAYER_MESSAGE.startsWith(commandPrefix)) {
         for (const player of server.players) {
-           if (player.i === PLAYER_ID)
-                console.log(`[CHAT] ${player.n}: ${PLAYER_MESSAGE}`);
-            else
-                console.log(`[CHAT] unknown#${PLAYER_ID}: ${PLAYER_MESSAGE}`);
+            if (player.i === PLAYER_ID)
+                return console.log(`[CHAT] ${player.n}: ${PLAYER_MESSAGE}`);
         }
-        return;
-    } 
+        
+        return console.log(`[CHAT] unknown${PLAYER_ID}: ${PLAYER_MESSAGE}`);
+    } else {
+        const invokerId = PLAYER_ID,
+            args = PLAYER_MESSAGE.slice(commandPrefix.length).trim().split(/ +/),
+            commandName = args.shift().toLowerCase() as keyof typeof Commands;
 
-    const args = PLAYER_MESSAGE.slice(commandPrefix.length).trim().split(/ +/);
-    const commandName = args.shift().toLowerCase() as keyof typeof Commands;
+        const command: Command = Commands[commandName];
 
-    const command: Command = Commands[commandName];
-
-    if (command)
-        command(socket, stats, args);
+        if (command)
+            command(socket, invokerId, playerStats, args), console.log(`[COMMANDS]: Player #${invokerId} invoked ${commandPrefix + commandName} command`)
+        else
+            socket.send(JSON.stringify([0, "Unknown command"])), console.log(`[COMMANDS]: Player #${invokerId} tried to invoke ${commandPrefix + commandName} command, but it dosen't exists`)
+    }
 }
 
 /**

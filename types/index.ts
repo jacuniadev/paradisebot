@@ -51,10 +51,11 @@ export type Server = {
 /**
  * Command function.
  * @param socket WebSocket instance.
- * @param stats Player statistic.
+ * @param invokerId Player ID of the command invoker.
+ * @param playerStats Player statistic.
  * @param args Additional arguments.
  */
-export type Command = (socket: WebSocket, stats: number[], args: string[]) => void
+export type Command = (socket: WebSocket, invokerId: number, playerStats: number[], args: string[]) => void
 
 /**
  * Communication universal handler.

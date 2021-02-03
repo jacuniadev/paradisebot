@@ -87,6 +87,6 @@ function Bot(address: string, userData: UserData) {
     });
 }
 
-Bot("server747.starve.io", {
+Bot("server1688.starve.io", {
     token: "znQo87B<muWx\0"
 });

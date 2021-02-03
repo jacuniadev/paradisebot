@@ -29,7 +29,7 @@
 export const commandPrefix = "#";
 
 /**
- * Chacks if object is empty.
+ * Checks if object is empty.
  * @param obj Any object.
  * @returns False if object isn't empty.
  */

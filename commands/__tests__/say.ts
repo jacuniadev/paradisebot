@@ -7,7 +7,7 @@ describe('Say command', () => {
             send: jest.fn(),
         } as unknown as WebSocket)
 
-        say(socket,[],['test']);
+        say(socket, 2,[],['test']);
 
         expect(socket.send).toHaveReturnedTimes(1);
         expect(socket.send).toHaveBeenCalledWith(JSON.stringify([0, ['test'].join()]));
