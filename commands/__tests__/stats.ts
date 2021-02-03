@@ -10,6 +10,6 @@ describe('Stats command', () => {
         stats(socket, 2,[],['test']);
 
         expect(socket.send).toHaveReturnedTimes(1);
-        expect(socket.send).toHaveBeenCalledWith(JSON.stringify([0, ['test'].join()]));
+        expect(socket.send).toHaveBeenCalledWith(JSON.stringify([0, "Player #2 says: test"]));
     })
 });
