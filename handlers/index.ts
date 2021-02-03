@@ -56,7 +56,7 @@ export const handleWaitForCommand: (server: Server, stats: number[]) => Handler<
             if (player.i === PLAYER_ID)
                 return console.log(`[CHAT] ${player.n}: ${PLAYER_MESSAGE}`);
         }
-        
+
         return console.log(`[CHAT] unknown${PLAYER_ID}: ${PLAYER_MESSAGE}`);
     } else {
         const invokerId = PLAYER_ID,
@@ -65,10 +65,13 @@ export const handleWaitForCommand: (server: Server, stats: number[]) => Handler<
 
         const command: Command = Commands[commandName];
 
-        if (command)
-            command(socket, invokerId, playerStats, args), console.log(`[COMMANDS]: Player #${invokerId} invoked ${commandPrefix + commandName} command`)
-        else
-            socket.send(JSON.stringify([0, "Unknown command"])), console.log(`[COMMANDS]: Player #${invokerId} tried to invoke ${commandPrefix + commandName} command, but it dosen't exists`)
+        if (command) {
+            command(socket, invokerId, playerStats, args);
+            console.log(`[COMMANDS]: Player #${invokerId} invoked ${commandPrefix + commandName} command`);
+        } else {
+            socket.send(JSON.stringify([0, "Unknown command"]));
+            console.log(`[COMMANDS]: Player #${invokerId} tried to invoke ${commandPrefix + commandName} command, but it dosen't exists`);
+        }
     }
 }
 
