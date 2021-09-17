@@ -1,15 +1,15 @@
 import WebSocket from "ws";
-import {say} from "../say";
+import {stats} from "../stats";
 
-describe('Say command', () => {
+describe('Stats command', () => {
     it('sends message via socket', () => {
         const socket: WebSocket = ({
             send: jest.fn(),
         } as unknown as WebSocket)
 
-        say(socket, 2,[],['test']);
+        stats(socket, 2,[],['test']);
 
         expect(socket.send).toHaveReturnedTimes(1);
-        expect(socket.send).toHaveBeenCalledWith(JSON.stringify([0, ['test'].join()]));
+        expect(socket.send).toHaveBeenCalledWith(JSON.stringify([0, "Player #2 says: test"]));
     })
 });

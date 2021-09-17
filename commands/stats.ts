@@ -17,20 +17,29 @@
     =======================================         
     @project: Paradise BOT;
     @author: thenbhd#0001, NNNP#4293;
-    @filename: commands/index.ts;
+    @filename: commands/say.ts;
 
     All rights are reserved.
     =======================================
 */
 
-/* THIS IS THE FILE THAT IS RESPONSIBLE FOR RUNNING COMMANDS */
+import {Command} from "../types";
 
-import {say} from "./say";
-import {followme} from "./followme";
-import {stats} from "./stats";
+/**
+ * Send current bot statistics message in-game.
+ * @param socket WebSocket instance.
+ * @param stats Bot statistics.
+ */
+export const stats: Command = (socket, __, stats, _) => {
+    if (!stats || stats.length === 0)
+        return socket.send(JSON.stringify([0, "Error: Waiting for statistics data"]))
 
-export default {
-    say,
-    followme,
-    stats
-};
+    const health = stats[1],
+        food = stats[2],
+        temperature = stats[3],
+        water = stats[4],
+        air = stats[5],
+        heat = stats[6];
+
+    socket.send(JSON.stringify([0, `HP: ${health}%, F: ${food}%, Water: ${water}%, Air: ${air}%, Temp: ${temperature}%, Heat: ${heat}%`]));
+}

@@ -64,12 +64,11 @@ class Socket extends Game {
      * @param message WebSocket message object.
      */
     private handleMessage = ({data}: WebSocket.MessageEvent) => {
-        if (data instanceof ArrayBuffer) 
-            this.handleUintCommunication(data)
-            
-
         if (typeof data === "string")
             this.handleJSONCommunication(data);
+
+        if (data instanceof ArrayBuffer) 
+            this.handleUintCommunication(data);
     };
 
     constructor(secure: boolean, address: string, token: string, tokenId?: string) {
@@ -87,6 +86,7 @@ class Socket extends Game {
         this.socket.onopen = () => this.socket.send(JSON.stringify(["pdbot.js", 2120, 1400, this.version, token, tokenId ? tokenId : "", 0, 0, 0, 0, 0, 1, 0, null, null, null]));
         this.socket.onerror = () => ({});
         this.socket.onmessage = this.handleMessage;
+
         this.JSONHandlers = new Map();
         this.UintHandlers = new Map();
     }
@@ -96,19 +96,11 @@ class Socket extends Game {
      * @param registeredHandler Object need to register handler for WebSocket message.
      */
     public registerHandler(registeredHandler: RegisteredJSONHandler | RegisteredUintHandler): void {
-        if (
-            registeredHandler.handlerType === "JSON" 
-            && !this.JSONHandlers.has(registeredHandler.registrat)
-        ) {
+        if (registeredHandler.handlerType === "JSON" && !this.JSONHandlers.has(registeredHandler.registrat))
             this.JSONHandlers.set(registeredHandler.registrat, registeredHandler.handler);
-        }
 
-        if (
-            registeredHandler.handlerType === "Uint"
-            && !this.UintHandlers.has(registeredHandler.registrat)
-        ) {
+        if (registeredHandler.handlerType === "Uint" && !this.UintHandlers.has(registeredHandler.registrat))
             this.UintHandlers.set(registeredHandler.registrat, registeredHandler.handler);
-        }
     }
 
     get socketInstance(): WebSocket | null {

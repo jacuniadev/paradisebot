@@ -28,7 +28,7 @@
  */
 class Game {
     /**
-     * Current game verison
+     * Current game version
      */
     public version: number;
     
